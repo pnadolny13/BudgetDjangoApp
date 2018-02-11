@@ -22,7 +22,8 @@ def months(request, month_id):
     try:
         diction[month_id]
         convert = diction[month_id]
-        inputs_month = Expense.objects.filter(date__month=convert)
+        inputs_month = {"category": "testCat"}
+        #inputs_month = Expense.objects.filter(date__month=convert)
         return render(request, 'Budget/months.html', {'inputs_month': inputs_month})
     except KeyError:
         raise Http404(month_id + ' is not a month!')
