@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+                                                
+{% load static %}   
+
+<html>
+    <head>
+        <title>Personal Finance Tracker 2.0</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/static/Budget/assets/css/main.css" />
+    </head>
+    <body>
+        <!-- Header -->
+            <header id="header">
+                <div class="inner">
+                    <a href="/budget/" class="logo"><strong>Personal Finance Tracker 2.0</strong> by Pat</a>
+                    <nav id="nav">
+                        <a href="/budget/">Home</a>
+                        <a href="/budget/track">Track</a>
+ <!--                       <a href="/budget/analyze">Analyze</a>
+                        <a href="/budget/action">Take Action</a>-->
+                        <a href="/admin/">Admin</a>
+                    </nav>
+                    <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+                </div>
+            </header>
+        <!-- Banner -->
+            <section id="banner-track">              
+            </section>  
+                                  
+		<!-- Insert Section-->
+    			<section id="insert" class="wrapper">
+    				<div class="inner">
+    					<header class="align-center">
+    						<h2>Budget Details</h2>
+    						<p>This is where the details of the budget will be </p>
+    					</header>
+  					 <form action="#" method="post">
+						<div class="field half first">
+							<label for="name">Expense Name</label>
+							<input name="name" id="name" type="text" placeholder="Expense">
+						</div>
+						<div class="field half">
+							<label for="email">Amount $</label>
+							<input name="email" id="email" type="email" placeholder="Amount">
+						</div>
+						<div class="field">
+							<label for="message">Substaintiation</label>
+							<textarea name="message" id="message" rows="6" placeholder="Substaintiation"></textarea>
+						</div>
+						<ul class="actions">
+							<li><input value="Send Message" class="button alt" type="submit"></li>
+						</ul>
+					</form>
+    				</div>
+    			</section>
+			                            
+    </body>
+</html>    

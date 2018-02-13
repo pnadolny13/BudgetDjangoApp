@@ -1,134 +1,63 @@
 <!DOCTYPE HTML>
-<!--
-This is the home page template
--->
-
-{% load static %}
-                                             
+      
+{% load static %}      
+                                          
 <html>
-	<head>
-		<title>Personal Finance Tracker 2.0</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-<!--		<link rel="stylesheet" href="/static/Budget/assets/css/main.css" />  -->
-		<link rel="stylesheet" href="{% static "/Budget/assets/css/main.css" %}" /> 
-	</head>
-	<body>
+    <head>
+        <title>Personal Finance Tracker 2.0</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/static/Budget/assets/css/main.css" />
+    </head>
+    <body>
+        <!-- Header -->
+            <header id="header">
+                <div class="inner">
+                    <a href="/budget/" class="logo"><strong>Personal Finance Tracker 2.0</strong> by Pat</a>
+                    <nav id="nav">
+                        <a href="/budget/">Home</a>
+                        <a href="/budget/track">Track</a>
+<!--                        <a href="/budget/analyze">Analyze</a> 
+                        <a href="/budget/action">Take Action</a> -->
+                        <a href="/admin/">Admin</a>
+                    </nav>
+                    <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+                </div>
+            </header>
 
-		<!-- Header -->
-			<header id="header">
-				<div class="inner">
-					<a href="" class="logo"><strong>Personal Finance Tracker 2.0</strong> by Pat</a>
-					<nav id="nav">
-						<a href="">Home</a>
-						<a href="generic.html">Budget Detail</a>
-                     <a href="all_months.html">By Month</a>
-						<a href="elements.html">About Us</a>
-                                                <a href="/admin/">Admin</a>
-					</nav>
-					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-				</div>
-			</header>
+        <!-- Banner -->
+            <section id="banner">
+                <div class="inner">
+                    <header>
+                        <h1>Start Tracking!</h1>
+                    </header>
 
-		<!-- Banner -->
-			<section id="banner">
-				<div class="inner">
-					<header>
-						<h1>Start Tracking!</h1>
-					</header>
+                    <div class="flex ">
 
-					<div class="flex ">
+                        <div>
+                            <span class="icon fa-thumb-tack"></span>
+                            <h3>Track</h3>
+                            <p>Store and organize budget data quickly <br />and easily </p>
+                        </div>
 
-						<div>
-							<span class="icon fa-car"></span>
-							<h3>Track</h3>
-							<p>Store and organize budget data quickly <br />and easily </p>
-						</div>
+                        <div>
+                            <span class="icon fa-line-chart"></span>
+                            <h3>Analyze</h3>
+                            <p>Simply pull up budget by category<br /> to analyze your week, month, or year</p>
+                        </div>
 
-						<div>
-							<span class="icon fa-camera"></span>
-							<h3>Analyze</h3>
-							<p>Simply pull up budget by category<br /> to analyze your week, month, or year</p>
-						</div>
+                        <div>
+                            <span class="icon fa-credit-card"></span>
+                            <h3>Take Action</h3>
+                            <p>Understanding of the way you<br /> spent will help you set goals for saving</p>
+                        </div>
 
-						<div>
-							<span class="icon fa-bug"></span>
-							<h3>Take Action</h3>
-							<p>Understanding of the way you<br /> spent will help you set goals for saving</p>
-						</div>
+                    </div>
 
-					</div>
-
-					<footer>
-						<a href="generic.html" class="button">Get Started</a>
-					</footer>
-				</div>
-			</section>
-
-
-		<!-- Three -->
-			<section id="three" class="wrapper align-center">
-				<div class="inner">
-					<div class="flex flex-2">
-						<article>
-							<div class="image round">
-								<img src="{% static "/Budget/images/pic01.jpg" %}" alt="Pic 01" />
-							</div>
-							<header>
-								<h3>Something<br /> will get added here</h3>
-							</header>
-							<p>The description about that something will be in this spot</p>
-							<footer>
-								<a href="#" class="button">Learn More</a>
-							</footer>
-						</article>
-						<article>
-							<div class="image round">
-								<img src="{% static "/Budget/images/pic02.jpg" %}" alt="Pic 02" />
-							</div>
-							<header>
-								<h3>And something<br /> else will be here</h3>
-							</header>
-							<p>IDK what to write here</p>
-							<footer>
-								<a href="#" class="button">Learn More</a>
-							</footer>
-						</article>
-					</div>
-				</div>
-			</section>
-
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-
-					<h3>Get in touch</h3>
-
-					<form action="#" method="post">
-
-						<div class="field half first">
-							<label for="name">Name</label>
-							<input name="name" id="name" type="text" placeholder="Name">
-						</div>
-						<div class="field half">
-							<label for="email">Email</label>
-							<input name="email" id="email" type="email" placeholder="Email">
-						</div>
-						<div class="field">
-							<label for="message">Message</label>
-							<textarea name="message" id="message" rows="6" placeholder="Message"></textarea>
-						</div>
-						<ul class="actions">
-							<li><input value="Send Message" class="button alt" type="submit"></li>
-						</ul>
-					</form>
-				</div>
-			</footer>
-
-		<!-- Scripts -->
-			<script src= "{% static "Budget/assets/js/jquery.min.js" %}"></script>
-			<script src= "{% static "Budget/assets/js/skel.min.js" %}"></script>
-			<script src= "{% static "Budget/assets/js/util.js" %}"></script>
-			<script src= "{% static "Budget/assets/js/main.js" %}"></script>                 
-	</body>
+                    <footer>
+                        <a href="/budget/track" class="button">Get Started</a>
+                    </footer>
+                </div>
+            </section>
+    </body>
 </html>

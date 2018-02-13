@@ -1,21 +1,4 @@
-<img src='https://nqki340a6g43eofbpz6nu7kk-wpengine.netdna-ssl.com/wp-content/uploads/2016/05/BBB124-Top-5-Homemade-Ice-Cream-Flavors-Thumbnail-FINAL-2-1024x576.jpg'>
-<h1>{{expense.description}}<h1>
-<h3>{{expense.amount}}</h3>
-
-<ul>
-    {% for item in expense.input_set.all %}
-        <li> {{input}} : {{input.files_type}}</li>
-    {% endfor %}
-</ul>
-
-
-
-
-
 <!DOCTYPE HTML>
-<!--
-This is the details template
--->
 
 {% load static %}
                                              
@@ -24,20 +7,21 @@ This is the details template
 		<title>Personal Finance Tracker 2.0</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-<!--		<link rel="stylesheet" href="/static/Budget/assets/css/main.css" />   -->
-		<link rel="stylesheet" href="{% static "Budget/assets/css/main.css" %}" />
+<!--		<link rel="stylesheet" href="/static/Budget/assets/css/main.css" />  -->
+		<link rel="stylesheet" href="{% static "/Budget/assets/css/main.css" %}" /> 
 	</head>
 	<body>
 
 		<!-- Header -->
 			<header id="header">
 				<div class="inner">
-					<a href="/budget/" class="logo"><strong>Personal Finance Tracker 2.0</strong> by Patch</a>
+					<a href="" class="logo"><strong>Personal Finance Tracker 2.0</strong> by Pat</a>
 					<nav id="nav">
-						<a href="index.html">Home</a>
+						<a href="">Home</a>
 						<a href="generic.html">Budget Detail</a>
-                     <a href="months.html">By Month</a>
-						<a href="elements.html">Admin</a>
+                     <a href="all_months.html">By Month</a>
+						<a href="elements.html">About Us</a>
+                                                <a href="/admin/">Admin</a>
 					</nav>
 					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 				</div>
@@ -47,33 +31,33 @@ This is the details template
 			<section id="banner">
 				<div class="inner">
 					<header>
-						<h1>Welcome to Projection</h1>
+						<h1>Start Tracking!</h1>
 					</header>
 
 					<div class="flex ">
 
 						<div>
 							<span class="icon fa-car"></span>
-							<h3>Aliquam</h3>
-							<p>Suspendisse amet ullamco</p>
+							<h3>Track</h3>
+							<p>Store and organize budget data quickly <br />and easily </p>
 						</div>
 
 						<div>
 							<span class="icon fa-camera"></span>
-							<h3>Elementum</h3>
-							<p>Class aptent taciti ad litora</p>
+							<h3>Analyze</h3>
+							<p>Simply pull up budget by category<br /> to analyze your week, month, or year</p>
 						</div>
 
 						<div>
 							<span class="icon fa-bug"></span>
-							<h3>Ultrices</h3>
-							<p>Nulla vitae mauris non felis</p>
+							<h3>Take Action</h3>
+							<p>Understanding of the way you<br /> spent will help you set goals for saving</p>
 						</div>
 
 					</div>
 
 					<footer>
-						<a href="#" class="button">Get Started</a>
+						<a href="generic.html" class="button">Get Started</a>
 					</footer>
 				</div>
 			</section>
@@ -88,9 +72,9 @@ This is the details template
 								<img src="{% static "/Budget/images/pic01.jpg" %}" alt="Pic 01" />
 							</div>
 							<header>
-								<h3>Lorem ipsum<br /> dolor amet nullam</h3>
+								<h3>Something<br /> will get added here</h3>
 							</header>
-							<p>Morbi in sem quis dui placerat ornare. Pellentesquenisi<br />euismod in, pharetra a, ultricies in diam sed arcu. Cras<br />consequat  egestas augue vulputate.</p>
+							<p>The description about that something will be in this spot</p>
 							<footer>
 								<a href="#" class="button">Learn More</a>
 							</footer>
@@ -100,9 +84,9 @@ This is the details template
 								<img src="{% static "/Budget/images/pic02.jpg" %}" alt="Pic 02" />
 							</div>
 							<header>
-								<h3>Sed feugiat<br /> tempus adipicsing</h3>
+								<h3>And something<br /> else will be here</h3>
 							</header>
-							<p>Pellentesque fermentum dolor. Aliquam quam lectus<br />facilisis auctor, ultrices ut, elementum vulputate, nunc<br /> blandit ellenste egestagus commodo.</p>
+							<p>IDK what to write here</p>
 							<footer>
 								<a href="#" class="button">Learn More</a>
 							</footer>
@@ -139,10 +123,9 @@ This is the details template
 			</footer>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
+			<script src= "{% static "Budget/assets/js/jquery.min.js" %}"></script>
+			<script src= "{% static "Budget/assets/js/skel.min.js" %}"></script>
+			<script src= "{% static "Budget/assets/js/util.js" %}"></script>
+			<script src= "{% static "Budget/assets/js/main.js" %}"></script>                 
 	</body>
 </html>
