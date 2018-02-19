@@ -1,7 +1,6 @@
 from django.conf.urls import url
 from . import views
 from django.contrib.auth import views as auth_views
-from django.urls import include, path
 
 app_name = 'Budget'
 
@@ -21,7 +20,6 @@ urlpatterns = [
     url(r'^action$', views.action, name='action'),    
     
     #Add Django site authentication urls (for login, logout, password management)
-    path('accounts/', include('django.contrib.auth.urls')),
     url(r'^accounts/login/', auth_views.login, name='login'),
     url(r'^accounts/logout/', auth_views.logout, name='logout'),
     url(r'^accounts/signup/$', views.signup, name='signup'),

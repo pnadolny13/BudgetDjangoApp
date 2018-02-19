@@ -6,8 +6,6 @@ sudo mv /home/pnadolny/firstsite/db.sqlite3 /home/pnadolny/
 sudo mv /home/pnadolny/firstsite/firstsite/settings.py /home/pnadolny/
 sudo rm -r /home/pnadolny/firstsite/*
 sudo mv /home/pnadolny/db.sqlite3 /home/pnadolny/firstsite/
-sudo mkdir /home/pnadolny/firstsite/firstsite/
-sudo mv /home/pnadolny/settings.py /home/pnadolny/firstsite/firstsite/
 
 # remove the db from the git pull
 sudo rm -r /home/ubuntu/BudgetDjangoApp/firstsite/db.sqlite3
@@ -17,6 +15,7 @@ sudo rm -r /home/ubuntu/BudgetDjangoApp/firstsite/firstsite/settings.py
 
 # move all files to deployed directory
 sudo mv /home/ubuntu/BudgetDjangoApp/firstsite/* /home/pnadolny/firstsite/
+sudo mv /home/pnadolny/settings.py /home/pnadolny/firstsite/firstsite/
 
 # update permissions
 sudo chmod -R 775 /home/pnadolny/firstsite
