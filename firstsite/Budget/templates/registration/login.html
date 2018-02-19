@@ -1,5 +1,6 @@
+<!-- templates/registration/login.html -->
 <!DOCTYPE HTML>
-{% load static %}   
+{% load static %}      
 <html>
    <head>
       <title>Personal Finance Tracker 2.0</title>
@@ -42,31 +43,14 @@
       <!-- Banner -->
       <section id="banner-track">              
       </section>
-      <!-- Insert Section-->
-      <section id="insert" class="wrapper">
-         <div class="inner">
-            <header class="align-center">
-               <h2>Budget Details</h2>
-               <p>This is where the details of the budget will be </p>
-            </header>
-            <form action="#" method="post">
-               <div class="field half first">
-                  <label for="name">Expense Name</label>
-                  <input name="name" id="name" type="text" placeholder="Expense">
-               </div>
-               <div class="field half">
-                  <label for="email">Amount $</label>
-                  <input name="email" id="email" type="email" placeholder="Amount">
-               </div>
-               <div class="field">
-                  <label for="message">Substaintiation</label>
-                  <textarea name="message" id="message" rows="6" placeholder="Substaintiation"></textarea>
-               </div>
-               <ul class="actions">
-                  <li><input value="Send Message" class="button alt" type="submit"></li>
-               </ul>
-            </form>
-         </div>
-      </section>
+      <h2>Login</h2>
+      <form method="post">
+         {% csrf_token %}
+         {{ form.as_p }}
+         <button type="submit">Login</button>
+         <a href = "/accounts/signup/">Create New Account?</a>                  
+      </form>
+      <footer>
+      </footer>
    </body>
 </html>

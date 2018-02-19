@@ -2,44 +2,11 @@
 from __future__ import unicode_literals
 
 from django.http import Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Expense
 
-
-    ################   LEGACY    #################    
-
-#def index(request):
-#   all_budget = Expense.objects.all()
-#   return render(request, 'Budget/index.html', {'all_budget': all_budget})
-#
-#
-#def detail(request, budget_id):
-#    expense = get_object_or_404(Expense, pk=budget_id)
-#    return render(request, 'Budget/detail.html', {'expense': expense})
-#
-#def months(request, month_id):
-#    month_id = month_id.lower()
-#    diction = {'january':'01','february':'02','march':'03','april':'04','may':'05','june':'06','july':'07','august':'08','september':'09','october':'10','november':'11','december':'12'}
-#    try:
-#        diction[month_id]
-#        convert = diction[month_id]
-#        inputs_month = {"category": "testCat"}
-#        #inputs_month = Expense.objects.filter(date__month=convert)
-#        return render(request, 'Budget/months.html', {'inputs_month': inputs_month})
-#    except KeyError:
-#        raise Http404(month_id + ' is not a month!')
-#
-#def generic(request):
-#    return render(request, 'Budget/generic.html')
-#
-#def elements(request):
-#    return render(request, 'Budget/elements.html')
-#
-#def all_months(request):
-#    months = ['January','February','March', 'April', 'May','June','July','August','September','October','November','December'];
-#    return render(request, 'Budget/all_months.html', {'months' : months})
-
-
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 
     ##################   NEW     ####################
 
@@ -47,7 +14,10 @@ def index(request):
    return render(request, 'Budget/index.html')
 
 def track(request):
-   return render(request, 'Budget/track.html')
+    if request.user.is_authenticated:
+        return render(request, 'Budget/track.html')
+    else:
+        return redirect('accounts/login')
 
 def analyze(request):
    return render(request, 'Budget/analyze.html')
@@ -55,3 +25,16 @@ def analyze(request):
 def action(request):
    return render(request, 'Budget/action.html')
 
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/accounts/login/')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})

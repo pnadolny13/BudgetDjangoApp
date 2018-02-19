@@ -1,28 +1,48 @@
 <!DOCTYPE HTML>
-                                                
 {% load static %}   
-
 <html>
-    <head>
-        <title>Personal Finance Tracker 2.0</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="/static/Budget/assets/css/main.css" />
-    </head>
-    <body>
-        <!-- Header -->
-            <header id="header">
-                <div class="inner">
-                    <a href="/budget/" class="logo"><strong>Personal Finance Tracker 2.0</strong> by Pat</a>
-                    <nav id="nav">
-                        <a href="/budget/">Home</a>
-                        <a href="/budget/track">Track</a>
-                        <a href="/budget/analyze">Analyze</a>
-                        <a href="/budget/action">Take Action</a>
-                        <a href="/admin/">Admin</a>
-                    </nav>
-                    <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-                </div>
-            </header>
-    </body>
-</html>    
+   <head>
+      <title>Personal Finance Tracker 2.0</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="/static/Budget/assets/css/main.css" />
+   </head>
+   <body>
+      <!-- Header -->
+      <header id="header">
+         <div class="inner">
+            <a href="/budget/" class="logo"><strong>Personal Finance Tracker 2.0</strong> by Pat</a>
+            <nav id="nav">
+               {% block content %}
+               {% if user.is_superuser or user.is_staff %}
+               <a href="/budget/">Home</a>
+               <a href="/budget/track">Track</a>
+               <a href="/budget/analyze">Analyze</a> 
+               <a href="/budget/action">Take Action</a>
+               <a href="/admin/">Admin</a>
+               <span class="icon fa-user" id="navUser">  {{ user.username }}</span>
+               <a id="navUser" href="/accounts/logout/">Logout</a>                                                    
+               {% elif user.is_authenticated%}
+               <a href="/budget/">Home</a>
+               <a href="/budget/track">Track</a>
+               <a href="/budget/analyze">Analyze</a> 
+               <a href="/budget/action">Take Action</a>
+               <span class="icon fa-user"></span>
+               <a id="navUser" href="/accounts/logout/">Logout</a>                            
+               {% else %}
+               <a href="/budget/">Home</a>
+               <span class="fas fa-arrow-circle-right"></span>                                                
+               <a id="navUser" href="/accounts/login/">Login</a>                              
+               {% endif %}
+               {% endblock %}
+            </nav>
+            <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+         </div>
+      </header>
+      <!-- Banner -->
+      <section id="banner-track">              
+      </section>
+      <footer>
+      </footer>
+   </body>
+</html>

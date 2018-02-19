@@ -73,7 +73,7 @@
 	}
 
 	body {
-		background: #fff;
+		background: #F2F4F4;
 	}
 
 		body.is-loading *, body.is-loading *:before, body.is-loading *:after {
@@ -767,6 +767,11 @@
 			#navPanel .close:hover {
 				color: inherit;
 			}
+			
+			#navUser {
+        		color: #fff;
+        		font-size: 10px !important;
+    		}
 			
 /* Banner */
 

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-{% load static %}   
+{% load static %}      
 <html>
    <head>
       <title>Personal Finance Tracker 2.0</title>
@@ -34,7 +34,6 @@
                <span class="fas fa-arrow-circle-right"></span>                                                
                <a id="navUser" href="/accounts/login/">Login</a>                              
                {% endif %}
-               {% endblock %}
             </nav>
             <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
          </div>
@@ -42,31 +41,25 @@
       <!-- Banner -->
       <section id="banner-track">              
       </section>
-      <!-- Insert Section-->
-      <section id="insert" class="wrapper">
-         <div class="inner">
-            <header class="align-center">
-               <h2>Budget Details</h2>
-               <p>This is where the details of the budget will be </p>
-            </header>
-            <form action="#" method="post">
-               <div class="field half first">
-                  <label for="name">Expense Name</label>
-                  <input name="name" id="name" type="text" placeholder="Expense">
-               </div>
-               <div class="field half">
-                  <label for="email">Amount $</label>
-                  <input name="email" id="email" type="email" placeholder="Amount">
-               </div>
-               <div class="field">
-                  <label for="message">Substaintiation</label>
-                  <textarea name="message" id="message" rows="6" placeholder="Substaintiation"></textarea>
-               </div>
-               <ul class="actions">
-                  <li><input value="Send Message" class="button alt" type="submit"></li>
-               </ul>
-            </form>
-         </div>
-      </section>
+      <h2>Sign up</h2>
+      <form method="post">
+         {% csrf_token %}
+         {% for field in form %}
+         <p>
+            {{ field.label_tag|safe }}<br>
+            {{ field|safe }}
+            {% if field.help_text %}
+            <small style="color: grey">{{ field.help_text|safe }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+         <p style="color: red">{{ error|safe }}</p>
+         {% endfor %}
+         </p>
+         {% endfor %}
+         <button type="submit">Sign up</button>
+      </form>
+      {% endblock %}
+      <footer>
+      </footer>
    </body>
 </html>
