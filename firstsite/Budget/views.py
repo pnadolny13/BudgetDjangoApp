@@ -5,9 +5,11 @@ from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Expense
 
+import datetime
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from .forms import ExpenseForm
+from .models import UserInput
 
     ##################   NEW     ####################
 
@@ -20,15 +22,31 @@ def track(request):
         form = ExpenseForm(request.POST);
         if form.is_valid():
             label = request.POST.get('label')
+            inputDate = request.POST.get('date')
+            amount = request.POST.get('amount')
+            category = request.POST.get('category')
+            comment = request.POST.get('comment')
+            entry = UserInput(user= request.user.username, date=inputDate, amount=amount, category=category, expenseLabel=label, comment=comment)
+            entry.save()
             print("label: " + str(label))
             return redirect('/budget/track')
         else:
             # this doesnt load a form it just says failed
             return render(request, 'Budget/track.html', {'notification': "Failed to Track"}, {'form': ExpenseForm()})
     elif request.user.is_authenticated:
-        # you shouldnt have gotten this far without login but check anyways
-        return render(request, 'Budget/track.html', {'form': ExpenseForm()})
+        # get user name
+        currentUser = request.user.username
+        
+        # get first day of current month
+        today = datetime.date.today()
+        month= today.replace(day=1)
+
+        # return recent 10 entries from this month
+        output = UserInput.objects.filter(user=currentUser).filter(date__gte=month)[:10]
+        print(output)
+        return render(request, 'Budget/track.html', {'form': ExpenseForm(initial={'date': today, 'comment': 'optional'}),'output': output} )
     else:
+        # you shouldnt have gotten this far without login but check anyways
         return redirect('accounts/login')
 
 def analyze(request):

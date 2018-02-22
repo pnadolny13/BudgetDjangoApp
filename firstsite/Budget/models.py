@@ -21,3 +21,14 @@ class Input(models.Model):
     is_favorite = models.BooleanField(default = False)
     def __str__(self):
         return self.expense + ' : ' + self.input_title + self.files_type
+
+
+class UserInput(models.Model):
+    user = models.CharField(max_length=20)
+    date = models.DateField()
+    amount = models.DecimalField(decimal_places=2, max_digits=6)
+    category = models.CharField(max_length=50)
+    expenseLabel = models.CharField(max_length=50)
+    comment = models.CharField(max_length=100, blank=True)
+    def __str__(self):
+        return self.expenseLabel + ", " + str(self.amount) + ", " + self.category + ", " + str(self.date) + ", " + self.comment
