@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
+from django_pandas.managers import DataFrameManager
 # Create your models here.
 
 class Expense(models.Model):
@@ -30,5 +30,5 @@ class UserInput(models.Model):
     category = models.CharField(max_length=50)
     expenseLabel = models.CharField(max_length=50)
     comment = models.CharField(max_length=100, blank=True)
-    def __str__(self):
-        return self.expenseLabel + ", " + str(self.amount) + ", " + self.category + ", " + str(self.date) + ", " + self.comment
+    objects = models.Manager()
+    pdobjects = DataFrameManager()
