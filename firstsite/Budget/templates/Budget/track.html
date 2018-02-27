@@ -1,10 +1,17 @@
 <!DOCTYPE HTML>
-{% load static %}   
+{% load static %}
+{% load render_table from django_tables2 %}  
 <html>
    <head>
       <title>Personal Finance Tracker 2.0</title>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <script src='/static/Budget/assets/js/bootstrap.js'></script>
+      <script src='/static/Budget/assets/js/jquery.min.js'></script>
+      <script src='/static/Budget/assets/js/bootstrap-table.js'></script>
+      <script src='/static/Budget/assets/js/pandas_bootstrap_table.js'></script>
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">    
       <link rel="stylesheet" href="/static/Budget/assets/css/main.css" />
    </head>
    <body>
@@ -57,12 +64,9 @@
             </form>
          </div>
          <div class="table">
-         <ul>
-             {% for i in output %}
-                 <li>{{ i }}</li>
-             {% endfor %}
-         </ul>
+            {{ table|safe }}
          </div>
+         {% render_table qs %}
       </section>
    </body>
 </html>

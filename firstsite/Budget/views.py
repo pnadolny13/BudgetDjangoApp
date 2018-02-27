@@ -4,12 +4,17 @@ from __future__ import unicode_literals
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Expense
+from django_pandas.managers import DataFrameManager
+import pandas
 
 import datetime
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from .forms import ExpenseForm
 from .models import UserInput
+from django_tables2 import RequestConfig
+from .tables import UserInputTable
+
 
     ##################   NEW     ####################
 
@@ -19,20 +24,19 @@ def index(request):
 def track(request):
     if request.method == 'POST':
         # validate form first
-        form = ExpenseForm(request.POST);
+        form = ExpenseForm(request.POST, user = request.user)
         if form.is_valid():
-            label = request.POST.get('label')
-            inputDate = request.POST.get('date')
-            amount = request.POST.get('amount')
-            category = request.POST.get('category')
-            comment = request.POST.get('comment')
-            entry = UserInput(user= request.user.username, date=inputDate, amount=amount, category=category, expenseLabel=label, comment=comment)
-            entry.save()
-            print("label: " + str(label))
-            return redirect('/budget/track')
+           label = request.POST.get('label')
+           inputDate = request.POST.get('date')
+           amount = request.POST.get('amount')
+           category = request.POST.get('category')
+           comment = request.POST.get('comment')
+           entry = UserInput(user= request.user.username, date=inputDate, amount=amount, category=category, expenseLabel=label, comment=comment)
+           entry.save()
+           return redirect('/budget/track')
         else:
             # this doesnt load a form it just says failed
-            return render(request, 'Budget/track.html', {'notification': "Failed to Track"}, {'form': ExpenseForm()})
+            return render(request, 'Budget/track.html', {'notification': "Failed to Track"}, {'form': ExpenseForm(user = request.user, initial={ 'date': today, 'comment': 'optional'})})
     elif request.user.is_authenticated:
         # get user name
         currentUser = request.user.username
@@ -41,10 +45,15 @@ def track(request):
         today = datetime.date.today()
         month= today.replace(day=1)
 
-        # return recent 10 entries from this month
-        output = UserInput.objects.filter(user=currentUser).filter(date__gte=month)[:10]
-        print(output)
-        return render(request, 'Budget/track.html', {'form': ExpenseForm(initial={'date': today, 'comment': 'optional'}),'output': output} )
+        # get 10 entries
+        qs = UserInputTable(UserInput.objects.order_by("-date").filter(user=currentUser).filter(date__gte=month))
+
+        # to allow for sorting 
+        # RequestConfig(request).configure(qs)
+
+        form = ExpenseForm(user = request.user, initial={ 'date': today, 'comment': 'optional'})
+        return render(request, 'Budget/track.html', {'qs': qs, 'form': form})
+
     else:
         # you shouldnt have gotten this far without login but check anyways
         return redirect('accounts/login')

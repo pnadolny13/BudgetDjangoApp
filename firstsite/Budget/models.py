@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django_pandas.managers import DataFrameManager
-# Create your models here.
 
 class Expense(models.Model):
     category = models.CharField(max_length=250)
@@ -24,11 +23,18 @@ class Input(models.Model):
 
 
 class UserInput(models.Model):
-    user = models.CharField(max_length=20)
-    date = models.DateField()
-    amount = models.DecimalField(decimal_places=2, max_digits=6)
-    category = models.CharField(max_length=50)
-    expenseLabel = models.CharField(max_length=50)
-    comment = models.CharField(max_length=100, blank=True)
+    user = models.CharField(max_length=20, verbose_name = 'User')
+    date = models.DateField(verbose_name = 'Date')
+    amount = models.DecimalField(decimal_places=2, max_digits=6, verbose_name = 'Amount')
+    category = models.CharField(max_length=50, verbose_name = 'Category')
+    expenseLabel = models.CharField(max_length=50, verbose_name= 'Expense Label')
+    comment = models.CharField(max_length=100, blank=True, verbose_name = 'Comment')
     objects = models.Manager()
     pdobjects = DataFrameManager()
+
+class UserCategories(models.Model):
+    user = models.CharField(max_length=20, verbose_name = 'User')
+    category = models.CharField(max_length=50, verbose_name = 'Category')
+    objects = models.Manager()
+    def __str__(self):
+        return self.category
