@@ -43,13 +43,16 @@
       <!-- Banner -->
       <section id="banner-track">              
       </section>
+      <div id="login">
       <h2>Login</h2>
       <form method="post">
          {% csrf_token %}
          {{ form.as_p }}
          <button type="submit">Login</button>
+         <br>
          <a href = "/accounts/signup/">Create New Account?</a>                  
       </form>
+    </div>
       <footer>
       </footer>
    </body>

@@ -1146,6 +1146,14 @@
 			}
 
 		}		
+/* Login Signup*/
+#login {
+	text-align: center;
 
-
+}
+#form {
+    text-align: left;
+    padding-left: 30%;
+    padding-right: 30%;
+}
 		

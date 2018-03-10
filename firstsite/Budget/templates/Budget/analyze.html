@@ -5,7 +5,9 @@
       <title>Personal Finance Tracker 2.0</title>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="stylesheet" href="/static/Budget/assets/css/main.css" />
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">    
+      <link rel="stylesheet" href="/static/Budget/assets/css/main.css" />   
    </head>
    <body>
       <!-- Header -->
@@ -42,6 +44,21 @@
       <!-- Banner -->
       <section id="banner-track">              
       </section>
+      <form action="/budget/analyze" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+      </form>
+      <div class="table">
+            <table>
+            {% for category, value in totals_dict.items %}
+                <tr>
+                  <td>{{ category }}</td>
+                  <td>{{ value }}</td>
+                </tr> 
+            {% endfor %}               
+            </table>
+      </div>
       <footer>
       </footer>
    </body>
