@@ -770,8 +770,9 @@
 			
 			#navUser {
         		color: #fff;
-        		font-size: 10px !important;
+        		font-size: 10px !important;      		
     		}
+
 			
 /* Banner */
 
@@ -1145,3 +1146,29 @@
 			}
 
 		}		
+/* Login Signup*/
+#login {
+	text-align: center;
+
+}
+#form {
+    text-align: left;
+    padding-left: 30%;
+	padding-right: 30%;
+}
+
+/* analyzeSumTable */
+#ast {
+	border: 1px solid black;
+	margin-top: 2%;
+	padding: 5px;
+	margin-left: 3%;
+	margin-right: auto;
+}
+
+#astH {
+	padding: 8px;
+	font-weight: bold;
+	color: rgba(0, 0, 0, 0.712);
+}
+		

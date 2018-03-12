@@ -16,4 +16,4 @@ class ExpenseForm(forms.Form):
             self.fields["category"].queryset = UserCategories.objects.filter(user__in=[user, "admin"])
 
 class MonthListForm(forms.Form):
-        month= forms.CharField(label='Analyze other month?', widget=forms.Select(choices=[ ('1', 'January'), ('2', 'February'), ('3', 'March'), ('4', 'April'), ('5', 'May'), ('6', 'June'), ('7', 'July'), ('8', 'August'), ('9', 'September'), ('10', 'October'),('11', 'November'), ('12', 'December')]))
+        month= forms.CharField(label='Month ', widget=forms.Select(choices=[ ('1', 'January'), ('2', 'February'), ('3', 'March'), ('4', 'April'), ('5', 'May'), ('6', 'June'), ('7', 'July'), ('8', 'August'), ('9', 'September'), ('10', 'October'),('11', 'November'), ('12', 'December')]))

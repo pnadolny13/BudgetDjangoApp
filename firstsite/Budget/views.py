@@ -81,18 +81,29 @@ def analyze(request):
     # get sum of amounts this month, in each category, then add to list
 
     totals_dict = {}
-    total = UserInput.objects.filter(user=currentUser).filter(date__gte=month).aggregate(Sum('amount'))
-    total_val = str(total['amount__sum'])
+    total = UserInput.objects.filter(user=currentUser).filter(date__gte=month).filter(category='Income').aggregate(Sum('amount'))
+    total_income = str(total['amount__sum'])
+    total_spent = 0
     for category in cats:
         cat_sum = UserInput.objects.filter(user=currentUser).filter(date__gte=month).filter(category=category).aggregate(Sum('amount'))
 
         value = cat_sum['amount__sum']
+        # if no data for that category then we cant give data
         if value is None:
             value = 0
             percent = 0
+        # if income is empty then we cant give a percentage
+        elif total['amount__sum'] is None:
+            value = 0
+            percent = 0
         else:
-            percent = str(round((100 * float(value)/float(total_val)),0))
-        totals_dict[str(category)] = (str(value) + " - " + str(percent) + "%")
+            percent = str(round((100 * float(value)/float(total_income)),0))
+        # dont include income
+        if str(category) == 'Income':
+            continue
+        totals_dict[str(category)] = [("$ " + str(value)), (str(percent) + "%")]
+        total_spent += value
+
     # then they can play with those numbers percent or dollar amount
     # see monthly flow and save budget settings
 
@@ -102,7 +113,9 @@ def analyze(request):
     # view by category like my excel sheet monthly - adjust date range
 
     # weekly budgets, color by how well you did, then click in to see all details
-    return render(request, 'Budget/analyze.html', {'totals_dict': totals_dict, 'form' : MonthListForm(initial={ 'month': today.month})})
+    savings = float(total_income) - float(total_spent)
+    save_percent = str(round((100 * float(savings)/float(total_income)),0))
+    return render(request, 'Budget/analyze.html', {'totals_dict': totals_dict, 'form' : MonthListForm(initial={ 'month': today.month}), 'income': ('$ ' + total_income), 'savings': ('$ ' + str(savings)), 'save_percent': (str(save_percent) + '%')})
 
 def action(request):
    return render(request, 'Budget/action.html')
