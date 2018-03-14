@@ -1171,4 +1171,8 @@
 	font-weight: bold;
 	color: rgba(0, 0, 0, 0.712);
 }
-		
+
+#trackTable {
+	margin-left: 10%;
+	margin-right: 10%;
+}
