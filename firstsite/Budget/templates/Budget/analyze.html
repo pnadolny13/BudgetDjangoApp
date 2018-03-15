@@ -1,84 +1,98 @@
-<!DOCTYPE HTML>
-{% load static %}   
+<!DOCTYPE HTML> {% load static %}
 <html>
-   <head>
-      <title>Personal Finance Tracker 2.0</title>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">    
-      <link rel="stylesheet" href="/static/Budget/assets/css/main.css" />   
-   </head>
-   <body>
-      <!-- Header -->
-      <header id="header">
-         <div class="inner">
-            <a href="/budget/" class="logo"><strong>Personal Finance Tracker 2.0</strong> by Pat</a>
+
+<head>
+    <title>Personal Finance Tracker 2.0</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/static/Budget/assets/css/main.css" />
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="inner">
+            <a href="/budget/" class="logo">
+                <strong>Personal Finance Tracker 2.0</strong> by Pat</a>
             <nav id="nav">
-               {% block content %}
-               {% if user.is_superuser or user.is_staff %}
-               <a href="/budget/">Home</a>
-               <a href="/budget/track">Track</a>
-               <a href="/budget/analyze">Analyze</a> 
-               <a href="/budget/action">Take Action</a>
-               <a href="/admin/">Admin</a>
-               <span class="icon fa-user" id="navUser">  {{ user.username }}</span>
-               <a id="navUser" href="/accounts/logout/">Logout</a>                                                    
-               {% elif user.is_authenticated%}
-               <a href="/budget/">Home</a>
-               <a href="/budget/track">Track</a>
-               <a href="/budget/analyze">Analyze</a> 
-               <a href="/budget/action">Take Action</a>
-               <span class="icon fa-user"></span>
-               <a id="navUser" href="/accounts/logout/">Logout</a>                            
-               {% else %}
-               <a href="/budget/">Home</a>
-               <span class="fas fa-arrow-circle-right"></span>                                                
-               <a id="navUser" href="/accounts/login/">Login</a>                              
-               {% endif %}
-               {% endblock %}
+                {% block content %} {% if user.is_superuser or user.is_staff %}
+                <a href="/budget/">Home</a>
+                <a href="/budget/track">Track</a>
+                <a href="/budget/analyze">Analyze</a>
+                <a href="/budget/action">Take Action</a>
+                <a href="/admin/">Admin</a>
+                <span class="icon fa-user" id="navUser"> {{ user.username }}</span>
+                <a id="navUser" href="/accounts/logout/">Logout</a>
+                {% elif user.is_authenticated%}
+                <a href="/budget/">Home</a>
+                <a href="/budget/track">Track</a>
+                <a href="/budget/analyze">Analyze</a>
+                <a href="/budget/action">Take Action</a>
+                <span class="icon fa-user"></span>
+                <a id="navUser" href="/accounts/logout/">Logout</a>
+                {% else %}
+                <a href="/budget/">Home</a>
+                <span class="fas fa-arrow-circle-right"></span>
+                <a id="navUser" href="/accounts/login/">Login</a>
+                {% endif %} {% endblock %}
             </nav>
-            <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-         </div>
-      </header>
-      <!-- Banner -->
-      <section id="banner-track">              
-      </section>
-      <form action="/budget/analyze" method="post">
-        {% csrf_token %}
-        {{ form }}
+            <a href="#navPanel" class="navPanelToggle">
+                <span class="fa fa-bars"></span>
+            </a>
+        </div>
+    </header>
+    <!-- Banner -->
+    <section id="banner-track">
+    </section>
+    <form action="/budget/analyze" method="post">
+        {% csrf_token %} {{ form }}
         <input type="submit" value="Go">
-      </form>
-      <div class="table">
-            <table id="ast">
-              <tr id="ast">
-                  <th id="astH">Category</th>
-                  <th id="astH">Monthly Total</th>
-                  <th id="astH">Percentage</th>
-                </tr>
+    </form>
+    <div class="table">
+        <table id="ast">
+            <tr id="ast">
+                <th id="astH">Category</th>
+                <th id="astH">Monthly Total</th>
+                <th id="astH">Percentage</th>
+            </tr>
             {% for category, value in totals_dict.items %}
-                <tr id="ast">
-                  <td id="ast">{{ category }}</td>
-                  <td id="ast">{{ value.0 }}</td>
-                  <td id="ast">{{ value.1 }}</td>
-                </tr> 
+            <tr id="ast">
+                <td id="ast">{{ category }}</td>
+                <td id="ast">{{ value.0 }}</td>
+                <td id="ast">{{ value.1 }}</td>
+            </tr>
             {% endfor %}
-                <tr id="ast" height = 20px></tr>
-                <tr id="ast">
-                    <td id="ast">Total Income</td>
-                    <td id="ast">{{ income }}</td>
-                </tr>
-                <tr id="ast">
-                    <td id="ast">Total Savings</td>
-                    <td id="ast">{{ savings }}</td>
-                </tr>
-                <tr id="ast">
-                    <td id="ast">Savings Percent</td>
-                    <td id="ast">{{ save_percent }}</td>
-                </tr>             
-            </table>
-      </div>
-      <footer>
-      </footer>
-   </body>
+            <tr id="ast" height=2 0px></tr>
+            <tr id="ast">
+                <td id="ast">Total Income</td>
+                <td id="ast">{{ income }}</td>
+            </tr>
+            <tr id="ast">
+                <td id="ast">Total Savings</td>
+                <td id="ast">{{ savings }}</td>
+            </tr>
+            <tr id="ast">
+                <td id="ast">Savings Percent</td>
+                <td id="ast">{{ save_percent }}</td>
+            </tr>
+        </table>
+    </div>
+    <!-- table 2 monthly data -->
+    <div class="table">
+        <table id="ast">
+            {% for week in monthTable %} {% for list in week %}
+            <tr id="ast">
+                {% for entry in list %}
+                <td id="ast">{{ entry }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %} {% endfor %}
+        </table>
+    </div>
+    <footer>
+    </footer>
+</body>
+
 </html>
