@@ -16,6 +16,10 @@ from .models import UserInput, UserCategories
 from django_tables2 import RequestConfig
 from .tables import UserInputTable
 import itertools
+try:
+    from itertools import zip_longest as zip_longest
+except:
+    from itertools import izip_longest as zip_longest
 from calendar import monthrange
 
 ##################   NEW     ####################
