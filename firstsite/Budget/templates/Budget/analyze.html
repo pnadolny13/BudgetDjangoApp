@@ -82,10 +82,21 @@
     <!-- table 2 monthly data -->
     <div class="table">
         <table id="ast">
-            {% for week in monthTable %} {% for list in week %}
+            <tr id="ast">
+            {% for category in categories %}
+                    <th id="astH">{{ category }}</th>
+            {% endfor %}  
+            </tr>
+            {% for week in monthTable %}
+                 <td colspan={{ categories }}>&nbsp;</td>
+            {% for list in week %}
             <tr id="ast">
                 {% for entry in list %}
-                <td id="ast">{{ entry }}</td>
+                    {% if entry is not none %}   
+                        <td id="ast">{{ entry }}</td>
+                    {% else %}
+                        <td id="ast">---</td>
+                    {%endif %}
                 {% endfor %}
             </tr>
             {% endfor %} {% endfor %}

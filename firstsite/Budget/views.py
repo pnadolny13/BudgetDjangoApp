@@ -16,10 +16,6 @@ from .models import UserInput, UserCategories
 from django_tables2 import RequestConfig
 from .tables import UserInputTable
 import itertools
-try:
-    from itertools import zip_longest as zip_longest
-except:
-    from itertools import izip_longest as zip_longest
 from calendar import monthrange
 
 ##################   NEW     ####################
@@ -83,6 +79,7 @@ def analyze(request):
         if form.is_valid():
             selected_month = request.POST.get('month')
             month = month.replace(month=int(selected_month))
+            today = today.replace(day=1).replace(month=int(selected_month))
 
     currentUser = request.user.username
     cats = UserCategories.objects.filter(user=currentUser)
@@ -124,7 +121,6 @@ def analyze(request):
     count = 1
     masterWeekList = []
     totalDays = monthrange(today.year, today.month)[1]
-    print("TOTALDAYS " + str(totalDays))
     while count < 5:
         endDay = int(round((totalDays/4)*count))
         startDay = int(round((totalDays/4)*count-(totalDays/4))+1)
@@ -136,18 +132,13 @@ def analyze(request):
         #     startDay = 1
         endDate = today.replace(day=endDay)
         startDate = today.replace(day=startDay)
-        print("START " + str(startDate) + " END : " +
-              str(endDate) + "COUNT " + str(count))
         # master list of all lists of category specific lists by week
         weekList = []
         for category in cats:
-            print("category: " + str(category))
             weekCatList = []
-            print("before week cat list: " + str(weekCatList))
             weekData = UserInput.objects.filter(user=currentUser).filter(
                 date__range=[startDate, endDate]).filter(category=category)
             for element in weekData:
-                print("weekData " + str(weekData))
                 # this looks like -- weekData<QuerySet [<UserInput: UserInput object (13)>]>
                 # print("weekData" + str(list(weekData)))
                 # this looks like vvv elementUserInput object (13)
@@ -156,20 +147,15 @@ def analyze(request):
                 # print("EL" + str(el))
                 amount = element.amount
                 expenseLabel = element.expenseLabel
-                combo = str(amount) + "-" + str(expenseLabel) + "-" + str(element.category)
-                print("adding " + str(combo))
+                combo = str(amount) + "-" + str(expenseLabel)
                 weekCatList.append(str(combo))
-                print("weekCatList: " + str(weekCatList))
-            # weekList[count]
-            # weekList.insert(count, weekCatList)
             weekList.append(weekCatList)
-        print("WEEKLIST PRIOR TO PIVOT: " + str(weekList))
-        weekList = list(itertools.zip_longest(*weekList))
+        try:
+            weekList = list(itertools.zip_longest(*weekList))
+        except:
+            weekList = list(itertools.izip_longest(*weekList))
         masterWeekList.append(weekList)
-        # del weekList[:]
-
         count += 1
-    print("THIS IS THE MASTER WEEK LIST" + str(masterWeekList))
 
     # then they can play with those numbers percent or dollar amount
     # see monthly flow and save budget settings
@@ -180,9 +166,13 @@ def analyze(request):
     # view by category like my excel sheet monthly - adjust date range
 
     # weekly budgets, color by how well you did, then click in to see all details
-    savings = float(total_income) - float(total_spent)
-    save_percent = str(round((100 * float(savings)/float(total_income)), 0))
-    return render(request, 'Budget/analyze.html', {'totals_dict': totals_dict, 'form': MonthListForm(initial={'month': today.month}), 'income': ('$ ' + total_income), 'savings': ('$ ' + str(savings)), 'save_percent': (str(save_percent) + '%'), 'monthTable': masterWeekList})
+    try:
+        savings = float(total_income) - float(total_spent)
+        save_percent = str(round((100 * float(savings)/float(total_income)), 0))
+    except:
+        savings = 0.0
+        save_percent = "0"
+    return render(request, 'Budget/analyze.html', {'totals_dict': totals_dict, 'form': MonthListForm(initial={'month': today.month}), 'income': ('$ ' + total_income), 'savings': ('$ ' + str(savings)), 'save_percent': (str(save_percent) + '%'), 'monthTable': masterWeekList, 'categories': cats})
 
 
 def action(request):
