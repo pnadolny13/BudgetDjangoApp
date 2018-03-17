@@ -82,11 +82,10 @@ def analyze(request):
             today = today.replace(day=1).replace(month=int(selected_month))
 
     currentUser = request.user.username
-    cats = UserCategories.objects.filter(user=currentUser)
     if currentUser == "admin":
         cats = UserCategories.objects.filter(user=currentUser)
     else:
-        cats += UserCategories.objects.filter(user=currentUser | user="admin")
+        cats = UserCategories.objects.filter(user__in=[currentUser, "admin"])
 
     # get sum of amounts this month, in each category, then add to list
 
