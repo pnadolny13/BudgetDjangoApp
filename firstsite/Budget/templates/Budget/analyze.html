@@ -83,15 +83,20 @@
     <div class="table">
         <table id="ast">
             <tr id="ast">
+                <!-- <th id="astH">Week</th> -->
             {% for category in categories %}
-                    <th id="astH">{{ category }}</th>
-            {% endfor %}  
+                <th id="astH">{{ category }}</th>
+            {% endfor %}
             </tr>
             {% for week in monthTable %}
-                 <td colspan={{ categories }}>&nbsp;</td>
-            {% for list in week %}
+                <!-- <td colspan={{ categories }}>&nbsp;</td> -->
+            <!-- find week length then add a row span of that size -->
+            <!-- <td rowspan=3> Merged </td> -->
+            <td colspan=7 > Week {{ forloop.counter }} {{ catCount }} </td>
+            {% for entries in week %}
             <tr id="ast">
-                {% for entry in list %}
+                <!-- <td id="ast">Week {{ loop.index }}</td> -->
+                {% for entry in entries %}
                     {% if entry is not none %}   
                         <td id="ast">{{ entry }}</td>
                     {% else %}
